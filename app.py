@@ -6,7 +6,6 @@ import database as dbase
 from product import Product
 
 db = dbase.dbConnection()
-
 app = Flask(__name__)
 
 
