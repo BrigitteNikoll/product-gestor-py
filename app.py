@@ -1,3 +1,6 @@
+import sys
+sys.path.append("./venv/lib/python3.10/site-packages")
+
 from flask import Flask, render_template, request, Response, jsonify, redirect, url_for
 import database as dbase  
 from product import Product
@@ -49,7 +52,6 @@ def edit(product_name):
     name = request.form['name']
     price = request.form['price']
     quantity = request.form['quantity']
- 
 
     if name and price and quantity:
         products.update_one({'name' : product_name}, {'$set' : {'name' : name, 'price' : price, 'quantity' : quantity}})

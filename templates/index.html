@@ -5,70 +5,51 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <script src="https://cdn.tailwindcss.com"></script>
 
 </head>
-<body>
-
-    <div class="container">
-        <h1 class="text-center mt-5 mb-5">Gestión de productos</h1>
+<body class="flex lg:flex-nowrap lg:h-screen lg:flex-row flex-col">
+    <div class="bg-gray-900 text-white text-3xl font-bold">
+        <h1 class="p-10">GESTIÓN DE PRODUCTOS</h1>
     </div>
-
-    <div class="container">
-        <div class="row row-col-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-2">
-            <div class="col-md-6 mb-3">
-                <div class="card">
-                    <div class="card-header">
-                        <h5 class="text-center">Registar producto</h5>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-0 text-gray-500 lg:divide-x lg:divide-y-0 divide-y divide-black divide-opacity-10 w-full">
+        <div class="flex flex-col p-10 bg-gray-100 lg:h-screen overflow-auto">
+            <b class="text-lg text-center mb-10 text-gray-700">REGISTAR PRODUCTO</b>
+            <form action="/products" method="POST" class="flex flex-col">
+                <small class="text-gray-600 mb-1">NOMBRE</small>
+                <input type="text" class="p-2 rouned-md mb-2" name="name">
+                <small class="text-gray-600 mb-1">PRECIO</small>
+                <input type="text" class="p-2 rouned-md mb-2" name="price">
+                <small class="text-gray-600 mb-1">CANTIDAD</small>
+                <input type="text" class="p-2 rouned-md mb-2" name="quantity">
+                <button class="p-3 bg-gray-600 text-white hover:bg-gray-500 mt-5" type="submit">Guardar</button>
+            </form>
+        </div>
+        <div class="flex flex-col p-10 bg-slate-100 lg:h-screen overflow-auto">
+            <b class="text-lg text-center mb-10 text-slate-700">LISTA DE PRODUCTOS REGISTRADOS</b>
+            <div class="flex flex-col py-10 bg-slate-100 max-full overflow-auto">
+                {% for product in products %}
+                <form action="/edit/{{product.name}}" method="POST" class="flex flex-col space-y-2 mb-10 bg-slate-200 p-5">
+                    <div class="grid grid-cols-4 gap-0 items-center">
+                        <small class="text-slate-600">NOMBRE</small>
+                        <input type="text" class="col-span-3 p-2 rounded-md text-center" value="{{product.name}}" name="name">
                     </div>
-                    <div class="card-body">
-                        <form action="/products" method="POST">
-                           
-                            <label>Nombre</label>
-                            <input type="text" class="form-control mb-3" name="name">
-                            <label>Precio</label>
-                            <input type="text" class="form-control mb-3" name="price">
-                            <label>Cantidad</label>
-                            <input type="text" class="form-control mb-3" name="quantity">
-                            <button class="btn btn-primary" type="submit">Guardar</button>
-                        </form>
+                    <div class="grid grid-cols-4 gap-0 items-center">
+                        <small class="text-slate-600">CANTIDAD</small>
+                        <input type="text" class="col-span-3 p-2 rounded-md text-center" value="{{product.quantity}}" name="quantity">
                     </div>
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header">
-                        <h5 class="text-center">Lista de productos registrados</h5>
+                    <div class="grid grid-cols-4 gap-0 items-center">
+                        <small class="text-slate-600">PRECIO</small>
+                        <input type="text" class="col-span-3 p-2 rounded-md text-center" value="{{product.price}}" name="price">
                     </div>
-                    <div class="card-body">
-                        <ul class="list-group">
-                            <div class="row row-col-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-3">
-                                {% for product in products %}
-
-                                    <div class="col">
-                                        <li class="list-group-item mb-3">
-                                            <form action="/edit/{{product.name}}" method="POST">
-                                                <input type="text" class="form-control" value="{{product.name}}" name="name">
-                                                <small>CANTIDAD</small>
-                                                <input type="text" class="form-control" value="{{product.quantity}}" name="quantity">
-                                                <small>PRECIO</small>
-                                                <input type="text" class="form-control" value="{{product.price}}" name="price">
-                                                <button class="btn btn-primary btn-sm mt-3" type="submit">Editar</button>
-                                                <a href="{{url_for('delete', product_name=product.name)}}" class="btn btn-danger btn-sm mt-3">Eliminar</a>
-
-                                            </form>
-                                        </li>
-                                    </div>
-
-                                {% endfor %}
-                            </div>
-                        </ul>
-                    </div> 
-                </div>
+                    <div class="grid grid-cols-2 gap-5 items-center pt-5">
+                        <button class="bg-teal-500 text-white px-3 py-2 text-center rounded-md" type="submit">Editar</button>
+                        <a href="{{url_for('delete', product_name=product.name)}}" class="bg-red-500 text-white px-3 py-2 text-center rounded-md">Eliminar</a>
+                    </div>
+                </form>
+                {% endfor %}
             </div>
         </div>
     </div>
-    
 </body>
 </html>
