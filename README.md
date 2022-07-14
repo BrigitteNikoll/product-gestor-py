@@ -1,4 +1,4 @@
-# Gestor de productos desarrollado en Python.
+# Gestor de productos.
 
 Este demo pertence a un CRUD realizado en Python (Flask) y MongoDB
 
