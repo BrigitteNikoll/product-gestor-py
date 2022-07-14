@@ -9,7 +9,6 @@ db = dbase.dbConnection()
 
 app = Flask(__name__)
 
-server = app.server
 
 #Rutas de la aplicación
 @app.route('/')
